@@ -1,0 +1,191 @@
+/* Global layout — single-viewport, no scroll */
+:root{
+  --max-width: 1000px;
+  --card-bg: #ffffff;
+  --muted: #6b7280;
+  --accent: #0f172a;
+  --accent-2: #0ea5a4;
+  --btn-bg: #0f172a;
+  --btn-fg: #ffffff;
+  --gap: 1rem;
+  --radius: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html,body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg,#f8fafc,#eef2ff);
+  overflow: hidden; /* Prevent scrolling — content must fit viewport */
+}
+
+.page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2vh 4vw;
+  gap: var(--gap);
+}
+
+/* Card style to contain content tightly */
+.card {
+  width: min(var(--max-width), 92vw);
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1.4rem;
+  box-shadow: 0 6px 20px rgba(12,15,30,0.06);
+}
+
+/* Header grid for main page */
+.header-grid {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* For very small viewports, stack but keep no scroll by shrinking images/text */
+@media (max-width:720px){
+  .header-grid { grid-template-columns: 1fr 160px; }
+  .header-figure img { width: 120px; height: auto; }
+  .card { padding: 1rem; }
+}
+
+/* Header text */
+.header-text h1 {
+  margin: 0 0 0.25rem 0;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  color: var(--accent);
+}
+.subinfo {
+  margin: 0.2rem 0 0.8rem 0;
+  color: var(--muted);
+  line-height: 1.35;
+  font-size: 0.98rem;
+}
+.email a {
+  color: var(--accent-2);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Formal photo */
+.header-figure { display:flex; justify-content:center; }
+.formal-photo {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid rgba(15,23,42,0.06);
+}
+
+/* About card */
+.about p {
+  margin: 0.5rem 0 0 0;
+  color: #111827;
+  line-height: 1.5;
+}
+
+/* Bottom nav buttons — fixed-ish within viewport but visually attached to page */
+.nav-bottom {
+  width: min(var(--max-width), 92vw);
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.6rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(15,23,42,0.08);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(15,23,42,0.12); }
+.btn:active { transform: translateY(0); }
+
+/* Muted text */
+.muted { color: var(--muted); margin: 0.25rem 0 0 0; }
+
+/* Academics list */
+.schools { list-style:none; padding:0; margin: 0.6rem 0 0 0; display:flex; flex-direction:column; gap:0.8rem; }
+.school { display:flex; gap:0.9rem; align-items:center; }
+.school-logo { width:72px; height:72px; object-fit:contain; border-radius:6px; background:#fff; padding:6px; box-shadow: 0 4px 12px rgba(8,10,20,0.04); }
+
+/* Achievements certificates */
+.certificates {
+  display:flex;
+  gap:0.6rem;
+  margin-top:0.8rem;
+  align-items:center;
+  justify-content:flex-start;
+}
+.certificates img {
+  width: calc((100% - 1.2rem) / 3);
+  max-width: 220px;
+  height: auto;
+  border-radius:6px;
+  object-fit:cover;
+  box-shadow: 0 6px 18px rgba(12,15,30,0.06);
+}
+
+/* Collage: three across without scrolling */
+.collage-row {
+  display:flex;
+  gap:0.6rem;
+  align-items:flex-start;
+  justify-content:space-between;
+  margin-top:0.6rem;
+}
+.collage-item { text-align:center; flex:1; }
+.collage-item img { width:100%; height: auto; max-height: 36vh; object-fit:cover; border-radius:6px; }
+.collage-item figcaption { margin-top:0.45rem; color:var(--muted); font-size:0.95rem; }
+
+/* Batch gallery */
+.batch-images {
+  display:flex;
+  gap:0.6rem;
+  align-items:center;
+  justify-content:center;
+  margin-top:0.6rem;
+}
+.batch-images img {
+  width: calc((100% - 0.6rem)/2);
+  height:auto;
+  max-height: 46vh;
+  object-fit:cover;
+  border-radius:6px;
+  box-shadow: 0 6px 18px rgba(12,15,30,0.06);
+}
+
+/* Accessibility helper */
+.visually-hidden {
+  position:absolute !important;
+  width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+
+/* Ensure content always fits — shrink text slightly if needed */
+@media (max-height:700px){
+  .card { padding: 0.9rem; }
+  .formal-photo { max-width:160px; }
+  .certificates img { max-width:160px; }
+  .collage-item img { max-height: 28vh; }
+  .batch-images img { max-height: 34vh; }
+}
